@@ -14,13 +14,16 @@
     "@google/genai": "^1.16.0",
     "@libsql/client": "^0.15.14",
     "@nuxthub/core": "^0.9.0",
+    "better-sqlite3": "^12.2.0",
     "dotenv": "^17.2.1",
     "drizzle-orm": "^0.44.5",
     "nuxt": "^4.0.3",
+    "openai": "^5.16.0",
     "vue": "^3.5.20",
     "vue-router": "^4.5.1"
   },
   "devDependencies": {
+    "@types/better-sqlite3": "^7.6.13",
     "drizzle-kit": "^0.31.4",
     "tsx": "^4.20.5",
     "wrangler": "^4.33.1"
