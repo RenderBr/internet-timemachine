@@ -1,12 +1,12 @@
 import { PromptInformation } from '../../shared/PromptInformation';
 
 export function getSitePrompt(info: PromptInformation): string {
-    return `
+    let prompt = `
     You are simulating an "Internet Timemachine", almost like a web archive. Produce the complete HTML for ${info.url} as it appeared in ${info.year}.
 
     Rules:
     - Use only vanilla JavaScript and Tailwind CSS.
-    - Visuals:
+    - Only use styles and layouts that were prevalent in ${info.year}.
     - Prefer inline SVG.
     - If raster images are needed, use PNG only.
     - Filenames must be descriptive, include dimensions/transparency, and end with .png.
@@ -17,7 +17,18 @@ export function getSitePrompt(info: PromptInformation): string {
     - Output strictly the raw HTML (no markdown, no comments).
     - Style and content must reflect the design trends, fonts, and color palettes of ${info.year}.
     - Do not mention AI, the future, or break historical accuracy.
+    - Do not wrap the content in a code tag, i.e: \`\`\`html
 `;
+
+    if (info.rootContent) {
+        prompt += `
+
+    Base the layout and styling on the root page for cohesion:
+    ${info.rootContent}
+    `;
+    }
+
+    return prompt;
 }
 
 export function getImageAssetPrompt(info: PromptInformation): string {

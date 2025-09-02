@@ -13,11 +13,10 @@
           <input
             id="url"
             name="url"
-            type="url"
+            type="text"
             v-model="form.url"
             placeholder="https://example.com"
             required
-            inputmode="url"
             autocomplete="url"
           />
         </div>
@@ -29,13 +28,11 @@
             name="year"
             type="number"
             v-model.number="form.year"
-            min="1990"
-            max="2100"
             placeholder="YYYY"
             required
             aria-describedby="year-help"
           />
-          <small id="year-help" class="hint">Pick a year between 1990 and 2100</small>
+          <small id="year-help" class="hint">No limit!</small>
         </div>
 
         <div class="actions">
@@ -138,7 +135,7 @@ label{
   color: var(--muted);
 }
 
-input[type="url"], input[type="number"]{
+input[type="text"], input[type="number"]{
   padding: 0.6rem 0.75rem;
   border-radius: 8px;
   border: 1px solid rgba(255,255,255,0.06);

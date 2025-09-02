@@ -1,5 +1,5 @@
 import { sites } from "../database/schema"
-import { eq, and } from "drizzle-orm";
+import { eq, and, like } from "drizzle-orm";
 import { generateImage, generateResponse } from "../utils/ai";
 import { getImageAssetPrompt, getSitePrompt } from "../utils/prompts";
 import { PromptInformation } from "~~/shared/PromptInformation";
@@ -33,11 +33,17 @@ export default defineEventHandler(async (event) => {
 
     if (!site) {
 
+        const rootSiteContent = await useDrizzle().select().from(sites)
+            .where(like(sites.url, `%${siteRoot}%`))
+            .limit(1).get();
+
         const promptInformation: PromptInformation = {
             root: siteRoot,
             url: siteUrl,
-            year: year
+            year: year,
+            rootContent: rootSiteContent?.file as string
         };
+        
         let siteContents = isImage ? await generateImage(getImageAssetPrompt(promptInformation))
                                    : await generateResponse(getSitePrompt(promptInformation));
 
