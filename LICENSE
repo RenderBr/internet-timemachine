@@ -1,0 +1,51 @@
+Non-Commercial Source License (Julian Seitz)
+
+Copyright (c) 2025 Julian Seitz
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to use,
+copy, modify, merge, publish, distribute, and sublicense copies of the
+Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+
+1. Non-Commercial Use Only
+   - The rights granted by this license are limited to non-commercial use.
+     "Non-commercial" means the Software, or any derivative works based on
+     it, may not be used, sold, sublicensed, rented, leased, or distributed
+     in any manner intended for commercial advantage or monetary compensation
+     without the express prior written permission of Julian Seitz.
+
+2. Attribution and License Notice
+   - Redistributions in source or binary form, with or without modification,
+     must retain the above copyright notice, this list of conditions, and the
+     following disclaimer.
+
+3. Permission for Commercial Use
+   - For permission to use the Software commercially (including use that is
+     directly or indirectly profitable), you must obtain explicit prior
+     written permission from Julian Seitz. To request permission, contact:
+
+       Julian Seitz <julian3seitz@gmail.com>
+
+     If this address becomes unavailable, you may also open an issue in the
+     project's issue tracker requesting contact details or permission.
+
+4. No Warranty
+   - THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+     OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+     MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+     IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+     LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+     FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+     DEALINGS IN THE SOFTWARE.
+
+5. Governing Law
+   - This license is governed by the laws of the jurisdiction in which the
+     copyright holder (Julian Seitz) resides, without regard to conflict of
+     law principles.
+
+Notes:
+- This license allows free modification and redistribution provided the use
+  remains non-commercial and the copyright and license notice are preserved.
+- To commercialize or use the Software for profit, obtain explicit written
+  permission from Julian Seitz ahead of time.
