@@ -2,6 +2,12 @@
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   nitro: {
+    externals: {
+      inline: [
+        "/timemachine\.dev\.config\.ts$/",
+        "/timemachine\.config\.ts$/"
+      ]
+    },
     routeRules: {
       '/site/**': { proxy: "/api/**" }
     },

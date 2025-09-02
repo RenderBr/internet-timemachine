@@ -1,6 +1,6 @@
 import { GoogleGenAI } from "@google/genai";
 import { AiProvider } from "./AiProvider";
-import timemachineConfig from '../../../timemachine.config.json';
+import { getConfig } from "~~/server/utils/config";
 
 export class GeminiAiProvider implements AiProvider {
     private apiKey: string | undefined;
@@ -26,8 +26,9 @@ export class GeminiAiProvider implements AiProvider {
     }
 
     async generateResponse(prompt: string): Promise<string | undefined> {
+        const config = await getConfig();
         const response = await this.client?.models.generateContent({
-            model: timemachineConfig.ai.text.model,
+            model: config.ai.text.model,
             "contents": prompt,
             config: this.config
         });
@@ -35,8 +36,9 @@ export class GeminiAiProvider implements AiProvider {
     }
 
     async generateImage(prompt: string): Promise<string | undefined> {
+        const config = await getConfig();
         const response = await this.client?.models.generateImages({
-            model: timemachineConfig.ai.image.model,
+            model: config.ai.image.model,
             prompt,
             config: {
                 numberOfImages: 1,

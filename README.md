@@ -21,7 +21,7 @@ Here's how it works:
 * SQLite
     - Drizzle ORM
     - better-sqlite3
-- NuxtHub
+* NuxtHub
 
 ## Features
 - **Flexible Time Travel**: No year limits - explore any year from the past, present, or future
@@ -41,7 +41,8 @@ Here's how it works:
 3) Install packages: `npm install`
 
 4) Configure environment:
-- Copy `timemachine.config.example.json` to `timemachine.config.json` and adjust AI providers/models as needed
+- Copy `timemachine.config.ts` and adjust AI providers/models as needed
+- For development, you can also modify `timemachine.dev.config.ts`
 - Copy `.env.example` to `.env` and fill in your information
 
 `GEMINI_API_KEY` and `OPENAI_API_KEY` must be populated (depending on your configured providers).
@@ -59,25 +60,29 @@ Defined in `.env` (see `.env.example`):
 - DB_FILE_NAME: path to the SQLite database file (default `./database.sqlite`)
 
 ## Configuration
-The `timemachine.config.json` file allows you to configure AI providers and models:
+The `timemachine.config.ts` file allows you to configure AI providers and models:
 - **Text Provider**: Choose between Google Gemini or OpenAI for generating website content
 - **Image Provider**: Choose between Google Gemini or OpenAI for generating images
 - **Models**: Specify which models to use for each provider
 
 Example configuration:
-```json
-{
-    "ai": {
-        "text": {
-            "provider": "openai",
-            "model": "gpt-4.1-mini"
+```typescript
+import { InternetTimemachineConfig } from './shared/InternetTimemachineConfig';
+
+const config: InternetTimemachineConfig = {
+    ai: {
+        text: {
+            provider: "openai",
+            model: "gpt-4.1-mini"
         },
-        "image": {
-            "provider": "openai",
-            "model": "gpt-image-1"
+        image: {
+            provider: "openai",
+            model: "gpt-image-1"
         }
     }
-}
+};
+
+export default config;
 ```
 
 ## Security and costs

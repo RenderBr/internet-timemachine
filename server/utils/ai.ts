@@ -1,20 +1,34 @@
 import { AiProvider } from "./types/AiProvider";
-import timemachineConfig from '../../timemachine.config.json';
 import { GeminiAiProvider } from "./types/GeminiAiProvider";
 import { OpenAiProvider } from "./types/OpenAiProvider";
+import { getConfig } from './config';
 
-
-/**
- * Image provider that will generate images, specifically for site assets.
- */
-const imageProvider = initializeProvider(timemachineConfig.ai.image.provider);
-console.log(`Using: ${timemachineConfig.ai.image.provider.toUpperCase()} as image provider.`);
+let imageProvider: AiProvider | undefined;
+let textProvider: AiProvider | undefined;
 
 /**
- * Text provider that will generate text responses, specifically site code.
+ * Gets the image provider, initializing it if necessary.
  */
-const textProvider = initializeProvider(timemachineConfig.ai.text.provider);
-console.log(`Using: ${timemachineConfig.ai.text.provider.toUpperCase()} as text provider.`);
+async function getImageProvider(): Promise<AiProvider> {
+    if (!imageProvider) {
+        const config = await getConfig();
+        imageProvider = initializeProvider(config.ai.image.provider);
+        console.log(`Using: ${config.ai.image.provider.toUpperCase()} as image provider.`);
+    }
+    return imageProvider;
+}
+
+/**
+ * Gets the text provider, initializing it if necessary.
+ */
+async function getTextProvider(): Promise<AiProvider> {
+    if (!textProvider) {
+        const config = await getConfig();
+        textProvider = initializeProvider(config.ai.text.provider);
+        console.log(`Using: ${config.ai.text.provider.toUpperCase()} as text provider.`);
+    }
+    return textProvider;
+}
 
 /**
  * Generates a text response from the given prompt, via the desired text provider.
@@ -23,7 +37,8 @@ console.log(`Using: ${timemachineConfig.ai.text.provider.toUpperCase()} as text 
  */
 export async function generateResponse(prompt: string): Promise<string | undefined> {
     console.log("Generating response for prompt:", prompt);
-    const response = await textProvider.generateResponse(prompt);
+    const provider = await getTextProvider();
+    const response = await provider.generateResponse(prompt);
 
     console.log("Generated response:", response);
     return response;
@@ -44,7 +59,8 @@ export async function generateImage(prompt: string, revisePrompt: boolean = true
     console.log("Generated image prompt:", promptResponse);
 
     console.log("Generating image...")
-    const response = await imageProvider.generateImage(promptResponse || prompt);
+    const provider = await getImageProvider();
+    const response = await provider.generateImage(promptResponse || prompt);
 
     console.log("Generated image response.");
     return response;
