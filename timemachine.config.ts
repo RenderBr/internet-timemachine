@@ -10,7 +10,12 @@ const config: InternetTimemachineConfig = {
             provider: "google",
             model: "gemini-2.5-flash-lite"
         }
-    }
+    },
+    cache: {
+        images: true,
+        webpages: true,
+    },
+    image_quality: 'auto'
 };
 
 export default config;

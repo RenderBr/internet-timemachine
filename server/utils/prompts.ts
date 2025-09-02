@@ -2,23 +2,33 @@ import { PromptInformation } from '../../shared/PromptInformation';
 
 export function getSitePrompt(info: PromptInformation): string {
     let prompt = `
-    You are simulating an "Internet Timemachine", almost like a web archive. Produce the complete HTML for ${info.url} as it appeared in ${info.year}.
+        You are simulating an "Internet Timemachine", similar to a web archive. Generate the complete HTML for ${info.url} as it appeared in ${info.year}.
 
-    Rules:
-    - Use only vanilla JavaScript and Tailwind CSS.
-    - Only use styles and layouts that were prevalent in ${info.year}.
-    - Prefer inline SVG.
-    - If raster images are needed, use PNG only.
-    - Filenames must be descriptive, include dimensions/transparency, and end with .png.
-    - Append ?image=true&year=${info.year} to all PNG URLs.
-    - Links and assets:
-    - Must be rooted at /site/${info.root}, e.g. /site/${info.root}/about?year=${info.year}.
-    - Rewrite external domains into the same format, e.g. /site/instagram.com/billgates?year=${info.year}.
-    - Output strictly the raw HTML (no markdown, no comments).
-    - Style and content must reflect the design trends, fonts, and color palettes of ${info.year}.
-    - Do not mention AI, the future, or break historical accuracy.
-    - Do not wrap the content in a code tag, i.e: \`\`\`html
+        Rules:
+        - Output strictly raw HTML. No explanations, comments, or markdown wrappers. The response must begin with <html>.
+        - Use only vanilla JavaScript.
+        - Styling:
+        - Use only layouts, fonts, and color palettes that were prevalent in ${info.year}.
+        - If ${info.year} < 2000 → use table-based layouts and inline CSS.
+        - If 2000 ≤ ${info.year} < 2010 → use external CSS and simple floats/div layouts.
+        - If ${info.year} ≥ 2017 → CSS Flexbox and Grid are allowed.
+        - Fonts must match the era (e.g., Times New Roman, Verdana, Arial in 1990s/2000s).
+        - Graphics:
+        - Inline SVG is mandatory for all icons, logos, and simple shapes.
+        - Raster images (only if unavoidable) must be PNG.
+        - Filenames must be descriptive, include dimensions/transparency, and end with .png.
+        - Append ?image=true&year=${info.year} to all PNG URLs.
+        - Always include explicit width and height attributes when downscaling. 
+        - All image files will be 1024x1024, keep this in mind.
+        - Links and assets:
+        - Must be rooted at /site/${info.root}, e.g. /site/${info.root}/about?year=${info.year}.
+        - Rewrite external domains to the same format, preserving full path/query, e.g. /site/instagram.com/billgates/photos?x=1&year=${info.year}.
+        - Never use absolute http/https URLs.
+        - Historical accuracy:
+        - Style, content, and layout must reflect the technology, design trends, and culture of ${info.year}.
+        - Do not mention AI, future events, or break historical immersion.
 `;
+
 
     if (info.rootContent) {
         prompt += `

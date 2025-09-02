@@ -2,6 +2,24 @@ import { InternetTimemachineConfig } from "../../shared/InternetTimemachineConfi
 
 let config: InternetTimemachineConfig | undefined = undefined;
 
+const DEFAULT_CONFIG: InternetTimemachineConfig = {
+    ai: {
+        image: {
+            provider: "openai",
+            model: "gpt-image-1"
+        },
+        text: {
+            provider: "google",
+            model: "gemini-2.5-flash-lite"
+        }
+    },
+    image_quality: 'auto',
+    cache: {
+        images: true,
+        webpages: true,
+    }
+};
+
 export async function getConfig(): Promise<InternetTimemachineConfig> {
     if (!config) {
         try {
@@ -16,18 +34,7 @@ export async function getConfig(): Promise<InternetTimemachineConfig> {
             } catch (fallbackError) {
                 // Final fallback to default config
                 console.warn('Could not load config files, using default configuration:', error);
-                config = {
-                    ai: {
-                        image: {
-                            provider: "openai",
-                            model: "gpt-image-1"
-                        },
-                        text: {
-                            provider: "google",
-                            model: "gemini-2.5-flash-lite"
-                        }
-                    }
-                };
+                config = DEFAULT_CONFIG;
             }
         }
     }

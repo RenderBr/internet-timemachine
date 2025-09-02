@@ -32,6 +32,7 @@ export class OpenAiProvider implements AiProvider {
             moderation: "low",
             n: 1,
             output_format: "png",
+            quality: config.image_quality,
             prompt: prompt,
         });
 

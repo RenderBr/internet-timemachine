@@ -25,16 +25,18 @@ export default defineEventHandler(async (event) => {
     const year = parseInt(yearString);
     const isImage = image === 'true';
 
+    const appConfig = await getConfig();
+    const doCaching = isImage ? (appConfig.cache.images) : (appConfig.cache.webpages);
 
-    let site = await useDrizzle().select().from(sites)
+    let site = doCaching ? await useDrizzle().select().from(sites)
         .where(and(eq(sites.url, siteUrl), eq(sites.year, year)))
-        .limit(1).get();
+        .limit(1).get() : null;
 
 
     if (!site) {
 
         const rootSiteContent = await useDrizzle().select().from(sites)
-            .where(like(sites.url, `%${siteRoot}%`))
+            .where(and(like(sites.url, `%${siteRoot}%`), eq(sites.year, year)))
             .limit(1).get();
 
         const promptInformation: PromptInformation = {
@@ -43,9 +45,9 @@ export default defineEventHandler(async (event) => {
             year: year,
             rootContent: rootSiteContent?.file as string
         };
-        
+
         let siteContents = isImage ? await generateImage(getImageAssetPrompt(promptInformation))
-                                   : await generateResponse(getSitePrompt(promptInformation));
+            : await generateResponse(getSitePrompt(promptInformation));
 
         if (!siteContents) {
             return createError({ statusCode: 500, statusMessage: 'AI generation failed' });
@@ -58,7 +60,19 @@ export default defineEventHandler(async (event) => {
             site: siteRoot
         };
 
-        site = await useDrizzle().insert(sites).values(siteInsert).returning().get();
+        if (doCaching) {
+            site = await useDrizzle().insert(sites).values(siteInsert).returning().get();
+        }else{
+            site = {
+                id: -1,
+                url: siteUrl,
+                year: year,
+                file: siteContents,
+                createdAt: new Date().getSeconds(),
+                site: siteRoot
+            };
+        }
+
     }
 
     if (isImage) {

@@ -3,7 +3,7 @@
     <header class="hero">
       <small class="kicker">welcome to</small>
       <h1 class="title">the internet time machine</h1>
-      <p class="subtitle">Explore the past, present, and future of the internet.</p>
+      <p class="subtitle">Explore the internet in an alternate timeline.</p>
     </header>
 
     <section class="card">
