@@ -1,5 +1,7 @@
 # Internet Timemachine
 
+<img width="1176" height="1337" alt="image" src="https://github.com/user-attachments/assets/b59f3020-5be7-454b-ad92-efabcf87da45" />
+
 ## What is it?
 The internet timemachine is an open source project that allows you to browse your own isolated, and contained version of the internet. 
 Powered by AI inference, every unique query will prompt AI, allowing an alternate timeline internet all stored on your webserver.
